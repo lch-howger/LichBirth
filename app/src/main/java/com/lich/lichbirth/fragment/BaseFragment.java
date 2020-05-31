@@ -1,5 +1,6 @@
 package com.lich.lichbirth.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,4 +29,16 @@ public abstract class BaseFragment extends Fragment {
     public abstract int getLayoutId();
 
     public abstract void initView(View view);
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof BaseActivity) {
+            ctx = (BaseActivity) context;
+        }
+    }
+
+    public void showToast(String text) {
+        ctx.showToast(text);
+    }
 }

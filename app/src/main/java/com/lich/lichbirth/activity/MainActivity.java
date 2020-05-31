@@ -24,6 +24,9 @@ public class MainActivity extends BaseActivity {
     private TextView tv_home;
     private TextView tv_edit;
     private TextView tv_me;
+    private HomeFragment homeFragment;
+    private EditFragment editFragment;
+    private MeFragment meFragment;
 
     @Override
     public int getLayoutId() {
@@ -43,14 +46,14 @@ public class MainActivity extends BaseActivity {
         tv_me = findViewById(R.id.tv_me);
 
 
-        HomeFragment homeFragment = new HomeFragment();
-        EditFragment editFragment = new EditFragment();
-        MeFragment meFragment = new MeFragment();
+        homeFragment = new HomeFragment();
+        editFragment = new EditFragment();
+        meFragment = new MeFragment();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(homeFragment, "Home");
-        transaction.add(editFragment, "Edit");
-        transaction.add(meFragment, "Me");
+        transaction.add(R.id.ll_main, homeFragment, "Home");
+        transaction.add(R.id.ll_main, editFragment, "Edit");
+        transaction.add(R.id.ll_main, meFragment, "Me");
         transaction.commitAllowingStateLoss();
 
         ll_home.setOnClickListener(new View.OnClickListener() {
@@ -73,24 +76,37 @@ public class MainActivity extends BaseActivity {
                 selectPage(2);
             }
         });
+
+        selectPage(0);
     }
 
     private void selectPage(int i) {
-iv_home.setImageResource(R.mipmap.home);
-iv_edit.setImageResource(R.mipmap.edit);
-iv_me.setImageResource(R.mipmap.me);
-tv_home.setTextColor(ColorUtil.getColor(R.color.c_999));
-tv_edit.setTextColor(ColorUtil.getColor(R.color.c_999));
-tv_me.setTextColor(ColorUtil.getColor(R.color.c_999));
+        iv_home.setImageResource(R.mipmap.home);
+        iv_edit.setImageResource(R.mipmap.edit);
+        iv_me.setImageResource(R.mipmap.me);
+        tv_home.setTextColor(ColorUtil.getColor(R.color.c_999));
+        tv_edit.setTextColor(ColorUtil.getColor(R.color.c_999));
+        tv_me.setTextColor(ColorUtil.getColor(R.color.c_999));
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.hide(homeFragment);
+        transaction.hide(editFragment);
+        transaction.hide(meFragment);
+
         if (i == 0) {
             iv_home.setImageResource(R.mipmap.home_fill);
             tv_home.setTextColor(ColorUtil.getColor(R.color.color_theme_blue));
+            transaction.show(homeFragment);
         } else if (i == 1) {
             iv_edit.setImageResource(R.mipmap.edit_fill);
             tv_edit.setTextColor(ColorUtil.getColor(R.color.color_theme_blue));
-        }else if (i == 2) {
+            transaction.show(editFragment);
+        } else if (i == 2) {
             iv_me.setImageResource(R.mipmap.me_fill);
             tv_me.setTextColor(ColorUtil.getColor(R.color.color_theme_blue));
+            transaction.show(meFragment);
         }
+
+        transaction.commitAllowingStateLoss();
     }
 }
