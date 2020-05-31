@@ -12,7 +12,7 @@ import com.lich.lichbirth.activity.BaseActivity;
 /**
  * Created by lichhowger on 2020/5/31.
  */
-abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     public BaseActivity ctx;
 
