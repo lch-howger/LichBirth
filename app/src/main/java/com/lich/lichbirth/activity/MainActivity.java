@@ -1,8 +1,10 @@
-package com.lich.lichbirth;
+package com.lich.lichbirth.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.lich.lichbirth.R;
 
 public class MainActivity extends AppCompatActivity {
 
